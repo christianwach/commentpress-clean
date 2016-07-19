@@ -513,13 +513,8 @@ Switcher
 	height: 22px;
 	padding: 14px;
 	text-align: center;
-	background-color: #EAE9DB;
 	text-indent: -9999px;
 	border-radius: 25px;
-}
-
-#switcher ul li a
-{
 	font-size: 20px;
 	line-height: 1;
 	font-weight: bold;
@@ -527,6 +522,7 @@ Switcher
 	text-transform: uppercase;
 	text-decoration: none;
 	color: #333;
+	background-color: #eee;
 }
 
 #switcher ul li a:focus,
@@ -534,12 +530,13 @@ Switcher
 #switcher ul li a:active
 {
 	color: #fff;
-	background-color: #d6d7c6;
+	background-color: #ddd;
 }
 
+/* hamburger by default */
 #switcher ul li a:before
 {
-	content: "\f101";
+	content: "\f333";
 	font-family: "dashicons";
 	display: block;
 	width: 22px;
@@ -553,16 +550,25 @@ Switcher
 	font-size: 110%;
 }
 
+/* navigation stays with default */
 #switcher ul li a.navigation-button:before
 {
 	content: "\f333";
 }
 
+/* document icon */
 #switcher ul li a.content-button:before
 {
 	content: "\f491";
 }
 
+/* speech bubble */
+#switcher ul li a.comments-button:before
+{
+	content: "\f101";
+}
+
+/* loudhailer */
 #switcher ul li a.activity-button:before
 {
 	content: "\f488";
@@ -1070,8 +1076,8 @@ ul#sidebar_tabs li a.active-tab
 	font-size: 80%;
 	font-weight: bold;
 	color: #222;
+	background-color: #eee;
 	/*
-	background-color: transparent;
 	visibility: hidden;
 	height: 0;
 	*/
@@ -1083,9 +1089,10 @@ h3.activity_heading:hover,
 	background-color: #ddd;
 }
 
-.comments_container > h3.nocomments:hover
+.comments_container > h3.nocomments:hover,
+.comments_container > h3.nocomments:hover span
 {
-	background-color: transparent;
+	background-color: #eee;
 }
 
 h3.nocomments
@@ -1093,9 +1100,10 @@ h3.nocomments
 	color: #222;
 }
 
+.comments_container > h3 a:hover,
 .comments_container > h3 a:focus
 {
-	background-color: #b4b4b4;
+	background-color: #ddd;
 }
 
 .comments_container > h3 > span,
@@ -1107,7 +1115,7 @@ h3.nocomments
 	color: #222;
 	text-decoration: none;
 	text-transform: uppercase;
-	background-color: transparent;
+	background-color: #eee;
 }
 
 .paragraph_wrapper

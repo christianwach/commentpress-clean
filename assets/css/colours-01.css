@@ -205,7 +205,32 @@ body.commentpress_page #cp-multisite-options h3,
 
 
 
+/* Switcher buttons */
+#switcher ul li a
+{
+	background: #EAE9DB;
+	background-color: #EAE9DB;
+}
+
+#switcher ul li a:focus,
+#switcher ul li a:hover,
+#switcher ul li a:active
+{
+	color: #fff;
+	background-color: #d6d7c6;
+}
+
+
+
 /* Sidebar Section headings */
+.comments_container > h3,
+.comments_container > h3 > span,
+.comments_container > h3 a,
+.comments_container > h3 a:active
+{
+	background-color: transparent;
+}
+
 h3.activity_heading:hover,
 .comments_container > h3:hover
 {
