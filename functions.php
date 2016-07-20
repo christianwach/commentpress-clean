@@ -392,12 +392,15 @@ function commentpress_header() {
 	// access plugin
 	global $commentpress_core;
 
-	// init with same colour as theme stylesheets and default in class_commentpress_db.php
-	$bg_colour = '2c2622';
+	// init as transparent
+	$bg_colour = 'transparent';
 
-	// override if we have the plugin enabled
-	if ( is_object( $commentpress_core ) ) {
-		$bg_colour = $commentpress_core->db->option_get_header_bg();
+	// do we have a colour set via the Customizer?
+	$colour = get_theme_mod( 'commentpress_header_bg_color', false );
+
+	// override if we do
+	if ( ! empty( $colour ) ) {
+		$bg_colour = $colour;
 	}
 
 	// allow overrides
@@ -440,7 +443,7 @@ function commentpress_header() {
 
 #header
 {
-	background-color: #' . $bg_colour . ';
+	background-color: ' . $bg_colour . ';
 	' . $bg_image . '
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
