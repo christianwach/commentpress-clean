@@ -42,6 +42,24 @@ function commentpress_setup() {
 	// add title support: wp_title() is deprecated as of WP 4.4
 	add_theme_support( 'title-tag' );
 
+	// allow custom backgrounds
+	add_theme_support( 'custom-background', array(
+		'default-color'          => 'ccc',
+		'default-image'          => '',
+		'wp-head-callback'       => 'commentpress_background',
+		'admin-head-callback'    => '',
+		'admin-preview-callback' => ''
+	) );
+
+	// allow custom header
+	add_theme_support( 'custom-header', array(
+		'default-text-color' => 'eeeeee',
+		'width' => apply_filters( 'cp_header_image_width', 940 ),
+		'height' => apply_filters( 'cp_header_image_height', 67 ),
+		'wp-head-callback' => 'commentpress_header',
+		'admin-head-callback' => 'commentpress_admin_header'
+	) );
+
 	// auto feed links
 	add_theme_support( 'automatic-feed-links' );
 
@@ -400,32 +418,17 @@ function commentpress_header() {
 	// note: this does NOT retrieve the default if not manually set in the Theme Customizer in WP3.4
 	$text_color = get_header_textcolor();
 
-	// WP3.4 seems to behave differently.
-	global $wp_version;
-	if ( version_compare( $wp_version, '3.4', '>=' ) ) {
-
-		// if blank, we're hiding the title
-		if ( $text_color == 'blank' ) {
-			$css = 'text-indent: -9999px;';
-		} else {
-
-			// if empty, we need to use default
-			if ( $text_color == '' ) {
-				$css = 'color: #' . HEADER_TEXTCOLOR . ';';
-			} else {
-
-				// use the custom one. I know this amounts to the same thing.
-				$css = 'color: #' . $text_color . ';';
-			}
-
-		}
-
+	// if blank, we're hiding the title
+	if ( $text_color == 'blank' ) {
+		$css = 'text-indent: -9999px;';
 	} else {
 
-		// use previous logic
-		if ( $text_color == 'blank' OR $text_color == '' ) {
-			$css = 'text-indent: -9999px;';
+		// if empty, we need to use default
+		if ( $text_color == '' ) {
+			$css = 'color: #' . HEADER_TEXTCOLOR . ';';
 		} else {
+
+			// use the custom one. I know this amounts to the same thing.
 			$css = 'color: #' . $text_color . ';';
 		}
 
