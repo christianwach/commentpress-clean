@@ -1124,6 +1124,12 @@ h3.nocomments
 	background-color: transparent;
 }
 
+/* allow some space below the last item in the nav column */
+#navigation .paragraph_wrapper:last-child
+{
+	padding-bottom: 12%;
+}
+
 .reply_to_para
 {
 }
