@@ -2230,8 +2230,11 @@ ul#members-list h5 a
 
 /* site members list */
 body.directory #buddypress #members-list li,
-/* friends list */
-body.friends #buddypress #members-list li
+/* friends lists */
+body.friends #buddypress #members-list li,
+/* BuddyPress Follow */
+body.followers #buddypress #members-list li,
+body.following #buddypress #members-list li
 {
 	overflow: auto;
 	padding: 15px;
