@@ -1791,9 +1791,13 @@ jQuery(document).ready( function($) {
 
 	// scroll the page on load
 	if ( cp_special_page == '1' ) {
-		CommentPress.common.content.on_load_scroll_to_comment();
+		setTimeout( function() {
+			CommentPress.common.content.on_load_scroll_to_comment();
+		}, 100 );
 	} else {
-		CommentPress.theme.viewport.on_load_scroll_to_anchor();
+		setTimeout( function() {
+			CommentPress.theme.viewport.on_load_scroll_to_anchor();
+		}, 100 );
 	}
 
 
