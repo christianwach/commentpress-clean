@@ -146,6 +146,15 @@ body#main_blog,
 
 
 
+/* 404 page title must have no background */
+body.error404 .post h2.post_title
+{
+	color: #333;
+	background: transparent;
+}
+
+
+
 /* Links in page/post content */
 .post a,
 
