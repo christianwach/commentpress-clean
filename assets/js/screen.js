@@ -281,6 +281,156 @@ CommentPress.theme.header = new function() {
 
 
 /**
+ * Create switcher class.
+ *
+ * This class tracks which state the page is in so that switcher buttons can set
+ * the appropriate state when they are clicked.
+ *
+ * @since 3.9
+ */
+CommentPress.theme.switcher = new function() {
+
+	// store object refs
+	var me = this,
+		$ = jQuery.noConflict();
+
+
+
+	/**
+	 * Initialise CommentPress theme switcher.
+	 *
+	 * This method should only be called once.
+	 *
+	 * @since 3.9
+	 */
+	this.init = function() {
+
+		// init state
+		me.init_active();
+
+	};
+
+
+
+	/**
+	 * Do setup when jQuery reports that the DOM is ready.
+	 *
+	 * This method should only be called once.
+	 *
+	 * @since 3.9
+	 */
+	this.dom_ready = function() {
+
+		// init discuss
+		me.init_discuss();
+
+	};
+
+
+
+	/**
+	 * Init switcher state.
+	 *
+	 * The state can be one of 'nav', 'content' or 'discuss'. This property is
+	 * dynamically updated when the viewport is altered as well as when the
+	 * switcher buttons are clicked. The 'discuss' column is further divided
+	 * into 'comments' and 'activity', which is tracked by me.discuss below
+	 *
+	 * All initial page loads show the "content" column by default, unless
+	 * subsequently altered by Javascript in response to conditions.
+	 *
+	 * @since 3.9
+	 */
+	me.active = 'content';
+
+	/**
+	 * Init active.
+	 *
+	 * @since 3.9
+	 */
+	this.init_active = function() {
+	};
+
+	/**
+	 * Getter for retrieving the current switcher state.
+	 *
+	 * @since 3.9
+	 *
+	 * @return The value of the active state
+	 */
+	this.get_active = function() {
+		return me.active;
+	};
+
+	/**
+	 * Setter for the current switcher state.
+	 *
+	 * @since 3.9
+	 *
+	 * @param The value of the active state
+	 */
+	this.set_active = function( identifier ) {
+		me.active = identifier;
+	};
+
+
+
+	/**
+	 * Init 'discuss' column state.
+	 *
+	 * The state can be one of 'comments' or 'activity'. This property is set
+	 * each time the comments or activity button is clicked and is independent
+	 * of the "major" column changes in me.active above.
+	 *
+	 * @since 3.9
+	 */
+	me.discuss = 'comments';
+
+	/**
+	 * Init discuss.
+	 *
+	 * @since 3.9
+	 */
+	this.init_discuss = function() {
+
+		// override discuss sidebar if activity is active
+		if ( $('body').hasClass( 'cp_sidebar_activity' ) ) {
+			me.set_discuss( 'activity' );
+		}
+
+	};
+
+	/**
+	 * Getter for retrieving the currently visible discuss column.
+	 *
+	 * @since 3.9
+	 *
+	 * @return The value of the discuss column
+	 */
+	this.get_discuss = function() {
+		return me.discuss;
+	};
+
+	/**
+	 * Setter for the currently visible discuss column.
+	 *
+	 * @since 3.9
+	 *
+	 * @param The value of the visible discuss column
+	 */
+	this.set_discuss = function( identifier ) {
+		me.discuss = identifier;
+	};
+
+}; // end switcher class
+
+
+
+/* -------------------------------------------------------------------------- */
+
+
+
+/**
  * Create navigation class
  */
 CommentPress.theme.navigation = new function() {
@@ -540,23 +690,13 @@ CommentPress.theme.sidebars = new function() {
 
 
 	/**
-	 * Bring sidebar to front
+	 * Bring sidebar to front.
+	 *
+	 * In this theme, the sidebar will only ever be 'comments' or 'activity'.
 	 *
 	 * @param string sidebar The sidebar to bring to the front
-	 * @return void
 	 */
 	this.activate_sidebar = function( sidebar ) {
-
-		/*
-		if ( sidebar == 'comments' ) {
-
-			// move to sidebar
-			if ( !$('body').hasClass('active-sidebar') || $('body').hasClass('active-nav') ) {
-				CommentPress.theme.sidebars.show_discuss();
-			}
-
-		}
-		*/
 
 		// define vars
 		var ontop, s_top, s_top_border;
@@ -588,27 +728,27 @@ CommentPress.theme.sidebars = new function() {
 	 */
 	this.enable_buttons = function() {
 
-		// Toggle for navigation
-		$('.navigation-button').click(function(e) {
+		// toggle for navigation
+		$('.navigation-button').click( function(e) {
 			e.preventDefault();
 			me.show_nav();
 		});
 
-		// Toggle for content
-		$('.content-button').click(function(e) {
+		// toggle for content (we don't have one of these in this theme!)
+		$('.content-button').click( function(e) {
 			e.preventDefault();
 			me.show_content();
 		});
 
-		// Toggle for comments sidebar
-		$('.comments-button').click(function(e) {
+		// toggle for comments sidebar
+		$('.comments-button').click( function(e) {
 			e.preventDefault();
 			me.show_comments();
 			me.activate_sidebar( 'comments' );
 		});
 
-		// Toggle for activity sidebar
-		$('.activity-button').click(function(e) {
+		// toggle for activity sidebar
+		$('.activity-button').click( function(e) {
 			e.preventDefault();
 			me.show_activity();
 			me.activate_sidebar( 'activity' );
@@ -624,9 +764,17 @@ CommentPress.theme.sidebars = new function() {
 	 * @return void
 	 */
 	this.show_nav = function() {
-		$('body').toggleClass('active-nav').removeClass('active-sidebar');
-		$('.sidebar-button,.content-button').removeClass('active-button');
-		$('.navigation-button').toggleClass('active-button');
+
+		// set appropriate classes
+		$('body').toggleClass( 'active-nav' ).removeClass( 'active-sidebar' );
+
+		// set switcher state
+		if ( $('body').hasClass( 'active-nav' ) ) {
+			CommentPress.theme.switcher.set_active( 'nav' );
+		} else {
+			CommentPress.theme.switcher.set_active( 'content' );
+		}
+
 	};
 
 	/**
@@ -635,20 +783,30 @@ CommentPress.theme.sidebars = new function() {
 	 * @return void
 	 */
 	this.show_content = function() {
-		$('body').removeClass('active-sidebar').removeClass('active-nav');
-		$('.navigation-button,.sidebar-button').removeClass('active-button');
-		$('.content-button').toggleClass('active-button');
+
+		// set appropriate classes
+		$('body').removeClass( 'active-sidebar' ).removeClass( 'active-nav' );
+
+		// set switcher state
+		CommentPress.theme.switcher.set_active( 'content' );
+
 	};
 
 	/**
 	 * Show discuss column
 	 *
+	 * This consists of both "comments" and "activity" columns below.
+	 *
 	 * @return void
 	 */
 	this.show_discuss = function() {
-		$('body').toggleClass('active-sidebar').removeClass('active-nav');
-		$('.navigation-button,.content-button,.activity-button').removeClass('active-button');
-		$('.comments-button').toggleClass('active-button');
+
+		// set appropriate classes
+		$('body').toggleClass( 'active-sidebar' ).removeClass( 'active-nav' );
+
+		// set switcher state
+		CommentPress.theme.switcher.set_active( 'discuss' );
+
 	};
 
 	/**
@@ -657,11 +815,22 @@ CommentPress.theme.sidebars = new function() {
 	 * @return void
 	 */
 	this.show_comments = function() {
-		if ( ! $('.activity-button').hasClass('active-button') ) {
-			$('body').toggleClass('active-sidebar').removeClass('active-nav');
+
+		// set appropriate classes
+		if ( 'discuss' != CommentPress.theme.switcher.get_active() ) {
+			me.show_discuss();
+			me.activate_sidebar( 'comments' );
+		} else {
+			if ( 'comments' != CommentPress.theme.switcher.get_discuss() ) {
+				me.activate_sidebar( 'comments' );
+			} else {
+				me.show_content();
+			}
 		}
-		$('.navigation-button,.content-button,.activity-button').removeClass('active-button');
-		$('.comments-button').toggleClass('active-button');
+
+		// set switcher discuss state
+		CommentPress.theme.switcher.set_discuss( 'comments' );
+
 	};
 
 	/**
@@ -670,11 +839,22 @@ CommentPress.theme.sidebars = new function() {
 	 * @return void
 	 */
 	this.show_activity = function() {
-		if ( ! $('.comments-button').hasClass('active-button') ) {
-			$('body').toggleClass('active-sidebar').removeClass('active-nav');
+
+		// set appropriate classes
+		if ( 'discuss' != CommentPress.theme.switcher.get_active() ) {
+			me.show_discuss();
+			me.activate_sidebar( 'activity' );
+		} else {
+			if ( 'activity' != CommentPress.theme.switcher.get_discuss() ) {
+				me.activate_sidebar( 'activity' );
+			} else {
+				me.show_content();
+			}
 		}
-		$('.navigation-button,.content-button,.comments-button').removeClass('active-button');
-		$('.activity-button').toggleClass('active-button');
+
+		// set switcher discuss state
+		CommentPress.theme.switcher.set_discuss( 'activity' );
+
 	};
 
 }; // end sidebars class
@@ -809,6 +989,11 @@ CommentPress.theme.viewport = new function() {
 						'top', '0'
 					);
 
+					// set top of switcher
+					$('html body #switcher').css(
+						'top', '0'
+					);
+
 					// get interface elements
 					viewport = $(window).height();
 
@@ -829,6 +1014,11 @@ CommentPress.theme.viewport = new function() {
 						'top', ( header_height ) + 'px'
 					);
 
+					// set top of switcher
+					$('html body #switcher').css(
+						'top', ( header_height ) + 'px'
+					);
+
 					// set sidebar height
 					CommentPress.theme.sidebars.set_height();
 
@@ -841,6 +1031,11 @@ CommentPress.theme.viewport = new function() {
 				// mobile browsers often reduce the size of the screen chrome on
 				// page scroll - so let's try and update the sidebar height
 				if ( cp_is_mobile == '1' || cp_is_tablet == '1' ) {
+
+					// set top of switcher
+					$('html body #switcher').css(
+						'top', ( header.height() ) + 'px'
+					);
 
 					// set sidebar height
 					CommentPress.theme.sidebars.set_height();
@@ -988,6 +1183,9 @@ CommentPress.theme.viewport = new function() {
 		// do we have a link to the comment form?
 		if ( url.match( '#respond' ) ) {
 
+			// show comments column
+			CommentPress.theme.sidebars.show_comments();
+
 			// is this a "Reply to [...]" link
 			if ( url.match( 'replytocom' ) ) {
 
@@ -1071,7 +1269,7 @@ CommentPress.theme.viewport = new function() {
 			post_id, textblock;
 
 		// activate comments sidebar
-		CommentPress.theme.sidebars.activate_sidebar('comments');
+		CommentPress.theme.sidebars.show_comments();
 
 		// open the matching block
 
@@ -1185,13 +1383,11 @@ CommentPress.theme.viewport = new function() {
 	 */
 	this.align_content = function( text_sig, scroll_target ) {
 
-		// bail if scrool target is 'none'
+		// bail if scroll target is 'none'
 		if ( scroll_target == 'none' ) { return; }
 
 		// move to sidebar
-		if ( !$('body').hasClass('active-sidebar') || $('body').hasClass('active-nav') ) {
-			CommentPress.theme.sidebars.show_discuss();
-		}
+		CommentPress.theme.sidebars.show_comments();
 
 		// define vars
 		var para_wrapper, comment_list, respond, top_level, opening, visible,
@@ -1213,9 +1409,6 @@ CommentPress.theme.viewport = new function() {
 
 		// is it a direct child of para wrapper?
 		top_level = addComment.getLevel();
-
-		// show comments sidebar
-		CommentPress.theme.sidebars.activate_sidebar( 'comments' );
 
 		// init
 		opening = false;
@@ -1467,9 +1660,9 @@ CommentPress.theme.viewport = new function() {
 
 
 /**
- * Create sub-sub-namespace for modern theme
+ * Create sub-sub-namespace for clean theme
  */
-CommentPress.theme.modern = {};
+CommentPress.theme.clean = {};
 
 
 
@@ -1481,6 +1674,7 @@ CommentPress.theme.modern = {};
 CommentPress.theme.settings.init();
 CommentPress.theme.DOM.init();
 CommentPress.theme.header.init();
+CommentPress.theme.switcher.init();
 CommentPress.theme.navigation.init();
 CommentPress.theme.content.init();
 CommentPress.theme.sidebars.init();
@@ -1505,12 +1699,13 @@ jQuery(document).ready( function($) {
 	CommentPress.theme.settings.dom_ready();
 	CommentPress.theme.DOM.dom_ready();
 	CommentPress.theme.header.dom_ready();
+	CommentPress.theme.switcher.dom_ready();
 	CommentPress.theme.navigation.dom_ready();
 	CommentPress.theme.content.dom_ready();
 	CommentPress.theme.sidebars.dom_ready();
 	CommentPress.theme.viewport.dom_ready();
 
-	// the modern theme uses a "rollover"
+	// the clean theme uses a "rollover"
 	CommentPress.common.comments.comment_rollovers();
 
 
@@ -1550,7 +1745,6 @@ jQuery(document).ready( function($) {
 
 		// remove highlight class
 		jQuery( '.comment-wrapper' ).removeClass( 'background-highlight' );
-
 
 	});
 
