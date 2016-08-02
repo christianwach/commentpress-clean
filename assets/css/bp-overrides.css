@@ -3906,6 +3906,39 @@ Widgets & Widget Areas
 	text-decoration: none;
 }
 
+.widget.buddypress #bp-login-widget-form
+{
+	padding-bottom: 0.4rem;
+}
+
+.widget.buddypress #bp-login-widget-form label
+{
+	margin-bottom: 0.2rem;
+}
+
+.widget.buddypress #bp-login-widget-form > label:first-child
+{
+	margin-top: 0.3rem;
+}
+
+.widget.buddypress #bp-login-widget-form .forgetmenot
+{
+	padding-bottom: 0.4rem;
+}
+
+.widget.buddypress #bp-login-widget-form .bp-login-widget-register-link a:hover,
+.widget.buddypress #bp-login-widget-form .bp-login-widget-register-link a:focus,
+.widget.buddypress #bp-login-widget-form .bp-login-widget-register-link a:active
+{
+	text-decoration: underline;
+}
+
+.widget.buddypress #bp-login-widget-form .bp-login-widget-register-link a
+{
+	color: #333;
+	text-decoration: none;
+}
+
 
 
 /*
