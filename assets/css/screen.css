@@ -458,7 +458,9 @@ Switcher
 #switcher
 {
 	z-index: 1000;
-	width: 100%;
+	position: fixed;
+	width: 54%;
+	left: 16%;
 }
 
 #switcher ul
@@ -684,8 +686,9 @@ Shadows and Transitions
 	transition: all .2s ease;
 }
 
-/* move header and footer as well */
+/* move header, switcher and footer as well */
 #header,
+#switcher,
 #footer
 {
 	-webkit-transition: all .2s ease;
@@ -1783,7 +1786,6 @@ h1, h2, h3, h4, h5, h6
 	color: #000;
 	text-decoration: none;
 }
-
 
 h2.post_title,
 .search_result h3
@@ -3595,6 +3597,7 @@ body .wp-dialog
 
 /* allow TinyMCE 4 to go fullscreen */
 body.tinymce-4.mce-fullscreen #header,
+body.tinymce-4.mce-fullscreen #switcher,
 body.tinymce-4.mce-fullscreen #sidebar
 {
 	z-index: 500;
@@ -4390,7 +4393,8 @@ RESPONSIVENESS
 		right: 0;
 	}
 
-	#header
+	#header,
+	#switcher
 	{
 		width: 67%;
 		left: 0;
@@ -4404,6 +4408,7 @@ RESPONSIVENESS
 	}
 
 	.active-nav #header,
+	.active-nav #switcher,
 	.active-nav #footer
 	{
 		width: 67%;
@@ -4411,6 +4416,7 @@ RESPONSIVENESS
 	}
 
 	.active-sidebar #header,
+	.active-sidebar #switcher,
 	.active-sidebar #footer
 	{
 		width: 67%;
@@ -4559,7 +4565,8 @@ RESPONSIVENESS
 		right: 0;
 	}
 
-	#header
+	#header,
+	#switcher
 	{
 		width: 100%;
 		left: 0;
@@ -4572,6 +4579,7 @@ RESPONSIVENESS
 	}
 
 	.active-nav #header,
+	.active-nav #switcher,
 	.active-nav #footer
 	{
 		width: 100%;
@@ -4579,6 +4587,7 @@ RESPONSIVENESS
 	}
 
 	.active-sidebar #header,
+	.active-sidebar #switcher,
 	.active-sidebar #footer
 	{
 		width: 100%;
@@ -4627,12 +4636,14 @@ RESPONSIVENESS
 	}
 
 	.active-nav #header,
+	.active-nav #switcher,
 	.active-nav #content_container
 	{
 		left: 70%;
 	}
 
 	.active-sidebar #header,
+	.active-sidebar #switcher,
 	.active-sidebar #content_container
 	{
 		left: -70%;
