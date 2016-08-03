@@ -224,8 +224,8 @@ body.commentpress_page #cp-multisite-options h3,
 /* Switcher buttons */
 #switcher ul li a
 {
-	background: #EAE9DB;
-	background-color: #EAE9DB;
+	background: #C1C3A9;
+	background-color: #C1C3A9;
 }
 
 #switcher ul li a:focus,
@@ -233,7 +233,7 @@ body.commentpress_page #cp-multisite-options h3,
 #switcher ul li a:active
 {
 	color: #fff;
-	background-color: #d6d7c6;
+	background-color: #afb290;
 }
 
 
