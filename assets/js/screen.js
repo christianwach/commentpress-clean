@@ -925,6 +925,23 @@ CommentPress.theme.viewport = new function() {
 			// maintain height of sidebars
 			CommentPress.theme.sidebars.set_height();
 
+			// is the WordPress admin bar shown?
+			if ( CommentPress.settings.DOM.get_wp_adminbar() == 'y' ) {
+
+				// set top of switcher
+				$('html body #switcher').css(
+					'top', ( $('#wpadminbar').height() ) + 'px'
+				);
+
+			} else {
+
+				// set top of switcher
+				$('html body #switcher').css(
+					'top', '0px'
+				);
+
+			}
+
 		});
 
 	};
@@ -1032,10 +1049,22 @@ CommentPress.theme.viewport = new function() {
 				// page scroll - so let's try and update the sidebar height
 				if ( cp_is_mobile == '1' || cp_is_tablet == '1' ) {
 
-					// set top of switcher
-					$('html body #switcher').css(
-						'top', ( header.height() ) + 'px'
-					);
+					// is the WordPress admin bar shown?
+					if ( CommentPress.settings.DOM.get_wp_adminbar() == 'y' ) {
+
+						// set top of switcher
+						$('html body #switcher').css(
+							'top', ( header.height() ) + 'px'
+						);
+
+					} else {
+
+						// set top of switcher
+						$('html body #switcher').css(
+							'top', '0px'
+						);
+
+					}
 
 					// set sidebar height
 					CommentPress.theme.sidebars.set_height();
