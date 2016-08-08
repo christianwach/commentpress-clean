@@ -257,7 +257,7 @@ CommentPress.theme.header = new function() {
 		var offset;
 
 		// get header offset
-		offset = -12; // allow some breathing space
+		offset = -72; // allow space for switcher buttons
 
 		// is the admin bar shown?
 		if ( CommentPress.settings.DOM.get_wp_adminbar() == 'y' ) {
