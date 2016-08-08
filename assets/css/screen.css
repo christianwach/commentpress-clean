@@ -4713,7 +4713,7 @@ RESPONSIVENESS
 	.search_result h3
 	{
 		font-size: 1.5em;
-		line-height: 3.5;
+		line-height: 1.5;
 	}
 
 	.cp_featured_title_inner h2.post_title
@@ -4744,7 +4744,7 @@ RESPONSIVENESS
 	#content,
 	.content
 	{
-		padding: 2% 0 6% 0;
+		padding: 12% 0 12% 0;
 	}
 
 	.reply a,
