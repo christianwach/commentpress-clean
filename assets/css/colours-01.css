@@ -338,7 +338,9 @@ ul#content-tabs li.default-content-tab h2 a:hover
 
 /* Section headings */
 .comments_container > h3 a:hover,
-.comments_container > h3 a:focus
+.comments_container > h3 a:focus,
+.comments_container > h3.nocomments:hover,
+.comments_container > h3.nocomments:hover span
 {
 	background-color: #EAE9DB;
 }
@@ -356,12 +358,6 @@ h3.activity_heading
 {
 	color: #fff;
 	background-color: #C1C3A9;
-}
-
-h3.activity_heading,
-h3.nocomments
-{
-	padding: 8px;
 }
 
 

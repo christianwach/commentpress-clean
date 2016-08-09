@@ -4424,11 +4424,10 @@ RESPONSIVENESS
 		left: 0;
 	}
 
-	h3.activity_heading,
-	h3.nocomments
+	h3.activity_heading
 	{
 		font-size: 1em;
-		padding: 15px 10px;
+		padding: 8px;
 	}
 
 	.comments_container > h3
@@ -4438,9 +4437,10 @@ RESPONSIVENESS
 
 	.comments_container > h3 > span,
 	.comments_container > h3 a,
-	.comments_container > h3 a:active
+	.comments_container > h3 a:active,
+	h3.nocomments
 	{
-		padding: 15px 10px;
+		padding: 8px;
 	}
 
 	.comments_container > h3.nocomments > span
@@ -4619,6 +4619,15 @@ RESPONSIVENESS
 	#blogs-dir-list
 	{
 		font-size: 110%;
+	}
+
+	h3.activity_heading,
+	.comments_container > h3 > span,
+	.comments_container > h3 a,
+	.comments_container > h3 a:active,
+	h3.nocomments
+	{
+		padding: 15px 10px;
 	}
 
 }
