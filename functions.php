@@ -53,7 +53,7 @@ function commentpress_setup() {
 
 	// allow custom header
 	add_theme_support( 'custom-header', array(
-		'default-text-color' => 'eeeeee',
+		'default-text-color' => '111111',
 		'width' => apply_filters( 'cp_header_image_width', 940 ),
 		'height' => apply_filters( 'cp_header_image_height', 67 ),
 		'wp-head-callback' => 'commentpress_header',
@@ -441,8 +441,7 @@ function commentpress_header() {
 	echo '
 <style type="text/css">
 
-#header
-{
+#header {
 	background-color: ' . $bg_colour . ';
 	' . $bg_image . '
 	-webkit-background-size: cover;
@@ -453,14 +452,11 @@ function commentpress_header() {
 	background-position: 50%;
 }
 
-#title h1,
-#title h1 a
-{
+#title h1, #title h1 a {
 	' . $css . '
 }
 
-#header #tagline
-{
+#header #tagline {
 	' . $css . '
 }
 
